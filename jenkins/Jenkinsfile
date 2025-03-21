@@ -35,14 +35,14 @@ stages {
     stage('test ')
     {
         parrallel {
-            stage(test a)
+            stage('test a')
             {
                 steps
                 {
                     echo "test A"
                 }
             }
-            stage(test b)
+            stage('test b')
             {
                 steps
                 {
