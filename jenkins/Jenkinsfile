@@ -17,7 +17,8 @@ tools {
   maven 'maven'
 }
 
-stages {
+stages 
+{
 
     stage('build')
     {
@@ -89,7 +90,4 @@ stages {
     }
 }
 
-
-
-}
 }
