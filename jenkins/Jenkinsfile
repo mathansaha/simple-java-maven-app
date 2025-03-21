@@ -5,11 +5,10 @@ agent {
 }
 // parameters {
 //   string defaultValue: 'gopal', name: 'Lastname'
+    //}
 parameters {
   choice choices: ['dev', 'prod'], name: 'select_env'
 }
-
-
 environment {
     NAME = "mathan"
 }
@@ -69,6 +68,7 @@ stages {
             }
         }
 
+        }
     }
         stage('deploy')
     {
