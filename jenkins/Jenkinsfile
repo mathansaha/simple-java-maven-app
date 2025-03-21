@@ -85,8 +85,7 @@ stages
             sh 'echo deploy'
             sh """
             cd /var/www/html/
-            jar -xvf my-app-1.0-SNAPSHOT.jar
-            """
+            tar -xvf maven-build.tar.gz
         }
 
     }
