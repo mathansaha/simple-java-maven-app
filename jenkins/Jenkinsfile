@@ -7,7 +7,7 @@ parameters {
   string defaultValue: 'gopal', name: 'Lastname'
 }
 environment {
-    Name ="mathan"
+    NAME = "mathan"
 }
 
 tools {
@@ -21,7 +21,7 @@ stages {
         steps
         {
             sh "mvn clean package"
-            sh "echo $Name ${params.Lastname}"
+            sh "echo $NAME ${params.Lastname}"
         }
         post {
         success {
