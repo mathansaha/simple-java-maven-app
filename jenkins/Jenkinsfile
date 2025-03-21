@@ -32,11 +32,31 @@ stages {
 
 
     }
-        stage('test ')
+    stage('test ')
     {
-        steps
+        parrallel {
+            stage(test a)
+            {
+                steps
+                {
+                    echo "test A"
+                }
+            }
+            stage(test b)
+            {
+                steps
+                {
+                    echo "test B"
+                }
+            }
+        }
+        post 
         {
-            sh 'echo test'
+        success 
+        {
+            // One or more steps need to be included within each condition's block.
+            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+                }
         }
 
     }
