@@ -82,7 +82,7 @@ stages {
             sh 'echo deploy'
             sh """
             cd /var/www/html/
-            jar -xvf 
+            jar -xvf my-app-1.0-SNAPSHOT.jar
             """
         }
 
