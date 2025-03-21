@@ -18,9 +18,9 @@ stages {
         post {
         success {
         // One or more steps need to be included within each condition's block.
-        archiveArtifacts artifacts: '**/target/*.war'
+            archiveArtifacts artifacts: '**/target/*.war', fingerprint: true
+                }
         }
-}
 
 
     }
