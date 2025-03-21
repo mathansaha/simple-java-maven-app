@@ -3,8 +3,12 @@ pipeline
 agent {
   label 'Devserver'
 }
+// parameters {
+//   string defaultValue: 'gopal', name: 'Lastname'
 parameters {
-  string defaultValue: 'gopal', name: 'Lastname'
+  choice choices: ['dev', 'prod'], name: 'select_env'
+}
+
 }
 environment {
     NAME = "mathan"
