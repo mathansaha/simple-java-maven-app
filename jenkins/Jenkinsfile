@@ -3,6 +3,13 @@ pipeline
 agent {
   label 'Devserver'
 }
+parameters {
+  string defaultValue: 'gopal', name: 'Lastname'
+}
+environment {
+    Name ="mathan"
+}
+
 tools {
   maven 'maven'
 }
@@ -14,6 +21,7 @@ stages {
         steps
         {
             sh "mvn clean package"
+            sh "echo $Name ${params.Lastname}"
         }
         post {
         success {
