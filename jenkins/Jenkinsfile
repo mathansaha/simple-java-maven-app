@@ -34,7 +34,7 @@ stages {
     }
     stage('test ')
     {
-        parrallel {
+        parallel {
             stage('test a')
             {
                 steps
