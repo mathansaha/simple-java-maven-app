@@ -5,10 +5,9 @@ agent {
 }
 // parameters {
 //   string defaultValue: 'gopal', name: 'Lastname'
+    //}
 parameters {
   choice choices: ['dev', 'prod'], name: 'select_env'
-}
-
 }
 environment {
     NAME = "mathan"
@@ -18,14 +17,15 @@ tools {
   maven 'maven'
 }
 
-stages {
+stages 
+{
 
     stage('build')
     {
         steps
         {
             sh "mvn clean package -DskipTests=true"
-            sh "echo $NAME ${params.Lastname}"
+            //sh "echo $NAME ${params.Lastname}"
         }
         post {
         success {
@@ -41,16 +41,20 @@ stages {
         parallel {
             stage('test a')
             {
+                agent {label 'Devserver'}
                 steps
                 {
                     echo "test A"
+                    sh 'mvn test'
                 }
             }
             stage('test b')
             {
+                agent {label 'Devserver'}
                 steps
                 {
                     echo "test B"
+                    sh 'mvn test'
                 }
             }
         }
@@ -58,22 +62,34 @@ stages {
         {
         success 
         {
-            // One or more steps need to be included within each condition's block.
-            archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
-                }
+            dir("target")
+            {
+            stash name : "maven-build", includes : "*.jar"
+            //archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
+            }
         }
 
+        }
     }
         stage('deploy')
     {
+        when {expression {params.select_env=='dev'}
+        beforeAgent true }
+        agent {label 'Devserver'}
         steps
         {
+            dir ('/var/www/html/')
+            {
+            unstash 'maven-build'
+            }
             sh 'echo deploy'
+            sh """
+            cd /var/www/html/
+            jar -xvf my-app-1.0-SNAPSHOT.jar
+            """
         }
 
     }
 }
-
-
 
 }
