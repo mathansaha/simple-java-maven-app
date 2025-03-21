@@ -86,6 +86,7 @@ stages
             sh """
             cd /var/www/html/
             tar -xvf maven-build.tar.gz
+            """
         }
 
     }
